@@ -7,24 +7,68 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --gold: #B8975A;
-    --gold-light: #D4B483;
-    --gold-pale: #F5EDD8;
-    --cream: #FAF7F2;
-    --dark: #2C2820;
-    --mid: #6B5F52;
-    --light: #9C8E82;
+    --gold: #C9965A;
+    --gold-light: #E0B87A;
+    --gold-pale: #FBF0DC;
+    --cream: #FDFAF6;
+    --dark: #3D2E1E;
+    --mid: #7A6652;
+    --light: #B09880;
+    --text: #4A3728;
+    --soft: #F7F0E8;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     background: var(--cream);
-    color: var(--dark);
+    color: var(--text);
     font-family: 'Noto Serif KR', serif;
     max-width: 480px;
     margin: 0 auto;
     overflow-x: hidden;
+  }
+
+
+  /* ── 인트로 오버레이 ── */
+  .intro-overlay {
+    position: fixed;
+    inset: 0;
+    background: #FBF0DC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    pointer-events: none;
+  }
+  .intro-line {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 22px;
+    letter-spacing: 0.18em;
+    color: var(--text);
+    opacity: 0;
+    transform: translateY(16px);
+    animation: introFadeUp 0.9s ease forwards;
+  }
+  .intro-line.sub {
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    margin-top: 14px;
+    animation-delay: 0.5s;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+  }
+  .intro-overlay.fade-out {
+    animation: introOut 0.7s ease 2.2s forwards;
+  }
+  @keyframes introFadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes introOut {
+    to { opacity: 0; pointer-events: none; }
   }
 
   /* ── 커버 ── */
@@ -54,9 +98,9 @@
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(44,40,32,0.55) 0%,
-      rgba(44,40,32,0.35) 40%,
-      rgba(44,40,32,0.65) 100%
+      rgba(30,20,10,0.30) 0%,
+      rgba(30,20,10,0.10) 40%,
+      rgba(30,20,10,0.55) 100%
     );
   }
 
@@ -189,7 +233,7 @@
   /* ── 섹션 공통 ── */
   .section {
     padding: 80px 36px;
-    border-bottom: 1px solid rgba(184,151,90,0.15);
+    border-bottom: 1px solid rgba(201,150,90,0.12);
   }
 
   .section-label {
@@ -421,10 +465,10 @@
 
   /* ── 지도 ── */
   .map-box {
-    background: rgba(184,151,90,0.05);
-    border: 1px solid rgba(184,151,90,0.2);
-    border-radius: 2px;
-    padding: 30px 20px;
+    background: rgba(201,150,90,0.05);
+    border: 1px solid rgba(201,150,90,0.2);
+    border-radius: 4px;
+    padding: 20px 16px;
     text-align: center;
     margin-bottom: 20px;
   }
@@ -761,6 +805,12 @@
 </head>
 <body>
 
+<!-- ── 인트로 오버레이 ── -->
+<div class="intro-overlay fade-out" id="intro-overlay">
+  <div class="intro-line">저희 결혼합니다.</div>
+  <div class="intro-line sub">Sangeon &amp; Miji</div>
+</div>
+
 <!-- ── BGM 버튼 (화면 고정) ── -->
 <button class="bgm-btn" id="bgm-btn" onclick="toggleBgm()" aria-label="배경음악 켜기/끄기">
   <div class="bgm-icon-wrap">
@@ -933,15 +983,25 @@
   <div class="gold-line"></div>
 
   <div class="map-box">
-    <div class="map-icon">📍</div>
     <div class="map-name">호텔인터불고원주 컨벤션호텔</div>
     <div class="map-addr">
       강원 원주시 동부순환로 200<br>
       1층 다이아몬드홀
     </div>
+    <!-- 네이버 지도 iframe -->
+    <div style="width:100%; height:200px; border-radius:4px; overflow:hidden; margin:14px 0;">
+      <iframe
+        src="https://map.naver.com/p/entry/place/13481816?c=15,0,0,0,dh&isCorrectAnswer=true"
+        width="100%" height="200"
+        style="border:none; display:block;"
+        title="호텔인터불고원주 위치"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+    </div>
     <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px;">
       <a href="https://map.kakao.com/?q=호텔인터불고원주" class="btn" target="_blank">카카오맵</a>
-      <a href="https://map.naver.com/p/search/강원 원주시 동부순환로 200 호텔인터불고원주" class="btn" target="_blank">네이버지도</a>
+      <a href="https://naver.me/G9vFmzQf" class="btn" target="_blank">네이버지도</a>
     </div>
   </div>
 
@@ -1012,12 +1072,32 @@
     </div>
 
     <div class="account-card">
+      <div class="account-who">신랑 어머니 — 이혜진</div>
+      <div style="overflow:hidden;">
+        <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
+        <div class="account-bank">○○은행</div>
+        <div class="account-num">000 - 0000 - 0000</div>
+        <div class="account-name">예금주 이혜진</div>
+      </div>
+    </div>
+
+    <div class="account-card">
       <div class="account-who">신부 아버지 — 권성달</div>
       <div style="overflow:hidden;">
         <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
         <div class="account-bank">○○은행</div>
         <div class="account-num">000 - 0000 - 0000</div>
         <div class="account-name">예금주 권성달</div>
+      </div>
+    </div>
+
+    <div class="account-card">
+      <div class="account-who">신부 어머니 — 김명화</div>
+      <div style="overflow:hidden;">
+        <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
+        <div class="account-bank">○○은행</div>
+        <div class="account-num">000 - 0000 - 0000</div>
+        <div class="account-name">예금주 김명화</div>
       </div>
     </div>
   </div>
@@ -1047,6 +1127,14 @@
 </footer>
 
 <script>
+  // ── 인트로 후 스크롤 잠금 해제 ──
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    document.body.style.overflow = '';
+    const intro = document.getElementById('intro-overlay');
+    if (intro) setTimeout(() => intro.remove(), 700);
+  }, 2900);
+
   // ── PC 차단 (개발 중 주석 처리 / 배포 시 아래 주석 해제) ──
   // function isMobile() {
   //   return /Android|iPhone|iPad|iPod|Mobile|BlackBerry|Windows Phone/i.test(navigator.userAgent)
@@ -1144,31 +1232,34 @@
   // ── BGM ──
   const BGM_SRC = ''; // ← 나중에 mp3 파일 경로 입력 (예: 'bgm.mp3')
   let audio = null;
-  let bgmPlaying = false;
+  let bgmPlaying = true; // 디폴트: 켜진 상태
   const bgmBtn = document.getElementById('bgm-btn');
 
+  // 페이지 로드 시 켜진 상태(♬) 로 시작
+  bgmBtn.classList.add('playing');
+
+  // BGM 파일 있으면 자동 재생 시도
+  if (BGM_SRC) {
+    audio = new Audio(BGM_SRC);
+    audio.loop = true;
+    audio.volume = 0.4;
+    audio.play().catch(() => {
+      // 자동재생 차단 시 버튼은 켜진 상태 유지, 첫 터치 시 재생
+      document.addEventListener('touchstart', function startBgm() {
+        audio.play().catch(() => {});
+        document.removeEventListener('touchstart', startBgm);
+      }, { once: true });
+    });
+  }
+
   function toggleBgm() {
-    if (!BGM_SRC) {
-      // BGM 파일 없어도 버튼 시각적 토글은 작동
-      bgmPlaying = !bgmPlaying;
-      if (bgmPlaying) bgmBtn.classList.add('playing');
-      else bgmBtn.classList.remove('playing');
-      return;
-    }
-    if (!audio) {
-      audio = new Audio(BGM_SRC);
-      audio.loop = true;
-      audio.volume = 0.5;
-    }
+    bgmPlaying = !bgmPlaying;
     if (bgmPlaying) {
-      audio.pause();
-      bgmPlaying = false;
-      bgmBtn.classList.remove('playing');
+      bgmBtn.classList.add('playing');
+      if (audio) audio.play().catch(() => {});
     } else {
-      audio.play().then(() => {
-        bgmPlaying = true;
-        bgmBtn.classList.add('playing');
-      }).catch(() => {});
+      bgmBtn.classList.remove('playing');
+      if (audio) audio.pause();
     }
   }
 
