@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>박상언 ♥ 권미지 결혼식에 초대합니다</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400&family=Gowun+Batang:wght@400;700&family=Nanum+Brush+Script&display=swap" rel="stylesheet">
 <style>
   :root {
     --gold: #C9965A;
@@ -85,12 +85,12 @@
   /* ── 커버 (메인.png 스타일) ── */
   .cover {
     width: 100%;
-    min-height: 100svh;
+    height: 100svh;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background: #e8e0d8;
+    background: #c8c0b4;
   }
   /* 대문사진: images/cover.jpg 업로드 시 자동 표시 */
   .cover-bg {
@@ -98,7 +98,7 @@
     inset: 0;
     background-image: url('images/cover.jpg');
     background-size: cover;
-    background-position: center top;
+    background-position: center center;
     background-repeat: no-repeat;
   }
   .cover-overlay {
@@ -106,65 +106,71 @@
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(0,0,0,0.0) 0%,
-      rgba(0,0,0,0.0) 45%,
-      rgba(255,255,255,0.5) 65%,
-      rgba(255,255,255,0.92) 78%,
-      rgba(255,255,255,1) 88%
+      rgba(255,255,255,0.18) 0%,
+      rgba(255,255,255,0.0) 25%,
+      rgba(255,255,255,0.0) 65%,
+      rgba(255,255,255,0.55) 82%,
+      rgba(255,255,255,0.82) 100%
     );
   }
-  /* 하단 정보 영역 */
-  .cover-bottom {
+  /* 상단 텍스트 오버레이 */
+  .cover-top {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 16px 0 36px;
+    top: 52px;
+    left: 0; right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
-    background: white;
+    gap: 4px;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.4s forwards;
   }
-  .cover-date-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 34px;
-    font-weight: 400;
-    color: var(--dark);
+  .cover-title-names {
+    font-family: 'Nanum Brush Script', cursive;
+    font-size: 28px;
+    color: rgba(50,38,28,0.85);
+    letter-spacing: 0.08em;
+    line-height: 1.3;
+    text-shadow: 0 1px 8px rgba(255,255,255,0.4);
+  }
+  .cover-title-main {
+    font-family: 'Nanum Brush Script', cursive;
+    font-size: 46px;
+    color: rgba(40,30,20,0.88);
     letter-spacing: 0.04em;
-    line-height: 1;
-    margin-bottom: 1px;
-    text-decoration: underline;
-    text-underline-offset: 5px;
-    text-decoration-thickness: 1px;
-    text-decoration-color: rgba(74,55,40,0.4);
+    line-height: 1.2;
+    text-shadow: 0 2px 12px rgba(255,255,255,0.35);
   }
-  .cover-date-detail {
+
+  /* 하단 날짜/장소 */
+  .cover-info {
+    position: absolute;
+    bottom: 52px;
+    left: 0; right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+  .cover-info-date {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 14px;
-    letter-spacing: 0.2em;
-    color: var(--mid);
-    margin-bottom: 2px;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: rgba(40,30,20,0.82);
+    text-shadow: 0 1px 6px rgba(255,255,255,0.4);
   }
-  .cover-venue-name {
+  .cover-info-venue {
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 12px;
     font-weight: 300;
-    color: var(--light);
-    letter-spacing: 0.05em;
-    margin-bottom: 10px;
-  }
-  .cover-names-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .cover-name-kr {
-    font-family: 'Noto Serif KR', serif;
-    font-weight: 400;
-    font-size: 20px;
-    color: var(--dark);
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
+    color: rgba(50,38,28,0.72);
+    text-shadow: 0 1px 4px rgba(255,255,255,0.35);
   }
 
   .scroll-hint {
@@ -794,8 +800,6 @@
   }
   /* 켠 상태엔 슬래시 숨김 */
   .bgm-btn.playing .bgm-slash { display: none; }
-  .bgm-btn.playing .bgm-icon-wrap svg { display: none; }
-  .bgm-btn.playing .bgm-slash { display: none; }
   .bgm-btn.playing
 
   @keyframes wave {
@@ -841,19 +845,21 @@
 
 <!-- ── 커버 ── -->
 <!-- 대문사진: images/cover.jpg 파일을 저장소에 업로드하세요 -->
+<!-- 대문사진: images/cover.jpg 를 저장소에 업로드하세요 -->
 <section class="cover">
   <div class="cover-bg"></div>
   <div class="cover-overlay"></div>
 
-  <div class="cover-bottom">
-    <div class="cover-date-num">10.17</div>
-    <div class="cover-date-detail">SAT PM 2:00</div>
-    <div class="cover-venue-name">호텔인터불고원주 1층 다이아몬드홀</div>
-    <div class="cover-names-row">
-      <span class="cover-name-kr">박상언</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(201,150,90,0.75)" stroke="none" style="flex-shrink:0;margin:0 2px;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-      <span class="cover-name-kr">권미지</span>
-    </div>
+  <!-- 상단: 이름 + 결혼합니다 -->
+  <div class="cover-top">
+    <div class="cover-title-names">박상언 ♥ 권미지</div>
+    <div class="cover-title-main">결혼합니다.</div>
+  </div>
+
+  <!-- 하단: 날짜 장소 -->
+  <div class="cover-info">
+    <div class="cover-info-date">10.17&nbsp;&nbsp;SAT PM 2:00</div>
+    <div class="cover-info-venue">호텔인터불고원주 1층 다이아몬드홀</div>
   </div>
 
   <div class="scroll-hint">
@@ -986,10 +992,10 @@
     <div class="map-name">호텔인터불고원주 컨벤션호텔 <span style="font-size:16px;">📞</span></div>
     <div class="map-sub-hall">1층 다이아몬드홀</div>
     <div class="map-addr">강원 원주시 동부순환로 200</div>
-    <!-- 네이버 지도 (좌표 기반 embed) -->
+    <!-- 카카오맵 embed (API 키 불필요) -->
     <div class="map-img-wrap">
       <iframe
-        src="https://map.naver.com/v5/embed?type=address&lng=127.9603&lat=37.3448&title=호텔인터불고원주&zoom=15"
+        src="https://map.kakao.com/?map_type=TYPE_MAP&itemId=27524516&el=PLACE&width=100%&height=240"
         width="100%"
         height="240"
         style="border:none; display:block;"
