@@ -1,14 +1,3 @@
-  // ── 카카오 공유 SDK ──
-  // ★ Kakao Developers(developers.kakao.com)에서 JavaScript 키 발급 후 아래에 입력
-  const KAKAO_JS_KEY = ''; // ← 여기에 입력
-
-  (function initKakao() {
-    if (typeof Kakao !== 'undefined' && KAKAO_JS_KEY && !Kakao.isInitialized()) {
-      Kakao.init(KAKAO_JS_KEY);
-    }
-  })();
-
-
   // ── 인트로: 한 글자씩 수기 효과 ──
   document.body.style.overflow = 'hidden';
   const introMain = document.getElementById('intro-main');
@@ -103,21 +92,29 @@
     });
   }
 
-  // ── 카카오 공유 ──
+  // ── 카카오 공유 SDK ──
+  // ★ developers.kakao.com → 앱 생성 → JavaScript 키를 아래에 입력
+  const KAKAO_JS_KEY = ''; // ← 여기에 JavaScript 키 입력
+
   function shareKakao() {
-    if (typeof Kakao !== 'undefined' && Kakao.isInitialized()) {
+    if (typeof Kakao !== 'undefined' && KAKAO_JS_KEY) {
+      if (!Kakao.isInitialized()) Kakao.init(KAKAO_JS_KEY);
       Kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
           title: '박상언 ♥ 권미지 결혼식에 초대합니다',
-          description: '2026년 10월 17일 오후 2시 · 원주 인터불고',
-          imageUrl: '',
-          link: { mobileWebUrl: window.location.href, webUrl: window.location.href }
-        }
+          description: '2026년 10월 17일 토요일 오후 2시\n호텔인터불고원주 1층 다이아몬드홀',
+          imageUrl: 'https://pse0527.github.io/images/cover.jpg',
+          link: { mobileWebUrl: 'https://pse0527.github.io', webUrl: 'https://pse0527.github.io' }
+        },
+        buttons: [{ title: '청첩장 보기', link: { mobileWebUrl: 'https://pse0527.github.io', webUrl: 'https://pse0527.github.io' }}]
       });
     } else {
-      navigator.clipboard.writeText(window.location.href).then(() => {
-        alert('링크가 복사되었습니다!\n카카오톡에 붙여넣기 해주세요 😊');
+      navigator.clipboard.writeText('https://pse0527.github.io').then(() => {
+        alert('링크가 복사되었습니다!
+카카오톡에 붙여넣기 해주세요 😊');
+      }).catch(() => {
+        prompt('아래 링크를 복사하세요:', 'https://pse0527.github.io');
       });
     }
   }
