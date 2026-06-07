@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>박상언 ♥ 권미지 결혼식에 초대합니다</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #B8975A;
+    --gold-light: #D4B483;
+    --gold-pale: #F5EDD8;
+    --cream: #FAF7F2;
+    --dark: #2C2820;
+    --mid: #6B5F52;
+    --light: #9C8E82;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'Noto Serif KR', serif;
+    max-width: 480px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
+  /* ── 커버 ── */
+  .cover {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(184,151,90,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(184,151,90,0.12) 0%, transparent 70%);
+  }
+
+  .cover-border {
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(184,151,90,0.35);
+    pointer-events: none;
+  }
+  .cover-border::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(184,151,90,0.15);
+  }
+
+  .corner {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .corner.tl { top: 20px; left: 20px; }
+  .corner.tr { top: 20px; right: 20px; transform: scaleX(-1); }
+  .corner.bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+  .corner.br { bottom: 20px; right: 20px; transform: scale(-1); }
+
+  .cover-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .cover-names {
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  .cover-names .kr {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    color: rgba(245,237,216,0.6);
+    margin-bottom: 10px;
+  }
+
+  .cover-names .en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold-pale);
+    line-height: 1.1;
+  }
+
+  .ampersand {
+    display: block;
+    font-size: 38px;
+    color: var(--gold);
+    margin: 6px 0;
+  }
+
+  .cover-divider {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    margin: 36px auto;
+    opacity: 0;
+    animation: fadeIn 1s ease 0.9s forwards;
+  }
+
+  .cover-date {
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.1s forwards;
+  }
+
+  .cover-date .day {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .cover-date .full {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    color: rgba(245,237,216,0.75);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.8s forwards;
+  }
+
+  .scroll-hint span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 28px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 1.8s ease-in-out infinite;
+  }
+
+  /* ── 섹션 공통 ── */
+  .section {
+    padding: 80px 36px;
+    border-bottom: 1px solid rgba(184,151,90,0.15);
+  }
+
+  .section-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.45em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+
+  .gold-line {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 28px;
+    opacity: 0.6;
+  }
+
+  /* ── 인사말 ── */
+  .greeting p {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 2.1;
+    color: var(--mid);
+    text-align: center;
+    word-break: keep-all;
+  }
+
+  .greeting .em {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--dark);
+    margin: 24px 0;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── 예식 정보 ── */
+  .info-title {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--light);
+    margin-bottom: 6px;
+  }
+
+  .info-value {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--dark);
+    letter-spacing: 0.05em;
+  }
+
+  .info-block {
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .info-sep {
+    width: 1px;
+    height: 40px;
+    background: rgba(184,151,90,0.3);
+    margin: 0 auto;
+  }
+
+  .dday-badge {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    padding: 8px 24px;
+    margin-top: 30px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* ── 갤러리 ── */
+  .gallery-placeholder {
+    background: rgba(184,151,90,0.06);
+    border: 1px dashed rgba(184,151,90,0.35);
+    border-radius: 2px;
+    padding: 50px 20px;
+    text-align: center;
+    color: var(--light);
+    font-size: 13px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .gallery-item {
+    aspect-ratio: 1;
+    background: rgba(184,151,90,0.08);
+    border: 1px dashed rgba(184,151,90,0.25);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-light);
+    font-size: 11px;
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 0.2em;
+  }
+
+  .gallery-note {
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    color: var(--light);
+    margin-top: 14px;
+    font-weight: 300;
+  }
+
+  /* ── 지도 ── */
+  .map-box {
+    background: rgba(184,151,90,0.05);
+    border: 1px solid rgba(184,151,90,0.2);
+    border-radius: 2px;
+    padding: 30px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .map-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .map-name {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 400;
+    font-size: 17px;
+    color: var(--dark);
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  .map-addr {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    color: var(--light);
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 11px 28px;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 4px;
+  }
+
+  .btn:hover {
+    background: var(--gold);
+    color: var(--cream);
+  }
+
+  .btn.fill {
+    background: var(--dark);
+    border-color: var(--dark);
+    color: var(--gold-light);
+  }
+
+  .transport-list {
+    margin-top: 24px;
+  }
+
+  .transport-item {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(184,151,90,0.12);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .transport-icon {
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(184,151,90,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .transport-label {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--dark);
+    margin-bottom: 3px;
+  }
+
+  .transport-desc {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    color: var(--light);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ── 계좌번호 ── */
+  .account-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .account-card {
+    border: 1px solid rgba(184,151,90,0.25);
+    border-radius: 2px;
+    padding: 20px;
+    background: rgba(184,151,90,0.03);
+  }
+
+  .account-who {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .account-bank {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    color: var(--light);
+    font-weight: 300;
+    margin-bottom: 4px;
+  }
+
+  .account-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: var(--dark);
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .account-name {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 13px;
+    color: var(--mid);
+  }
+
+  .copy-btn {
+    float: right;
+    padding: 6px 14px;
+    border: 1px solid rgba(184,151,90,0.4);
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    border-radius: 1px;
+    transition: all 0.2s;
+  }
+
+  .copy-btn:hover { background: var(--gold); color: white; }
+  .copy-btn.copied { background: var(--gold); color: white; }
+
+  .account-note {
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    color: var(--light);
+    margin-top: 16px;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  /* ── 카카오 공유 ── */
+  .kakao-wrap {
+    text-align: center;
+    padding: 70px 36px;
+    background: var(--dark);
+  }
+
+  .kakao-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .kakao-msg {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 15px;
+    color: rgba(245,237,216,0.7);
+    line-height: 2;
+    margin-bottom: 32px;
+    word-break: keep-all;
+  }
+
+  .kakao-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: #FEE500;
+    border: none;
+    border-radius: 2px;
+    color: #3C1E1E;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .kakao-btn:hover { opacity: 0.9; }
+
+  .kakao-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* ── 푸터 ── */
+  .footer {
+    text-align: center;
+    padding: 50px 36px 60px;
+    background: var(--dark);
+    border-top: 1px solid rgba(184,151,90,0.15);
+  }
+
+  .footer-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--gold-light);
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .footer-date {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: rgba(184,151,90,0.5);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+    50% { opacity: 0.4; transform: scaleY(0.6); transform-origin: top; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── 커버 ── -->
+<section class="cover">
+  <div class="cover-border"></div>
+  <div class="corner tl">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 26 L2 2 L26 2" stroke="#B8975A" stroke-width="1" fill="none" opacity="0.7"/>
+      <path d="M6 22 L6 6 L22 6" stroke="#B8975A" stroke-width="0.5" fill="none" opacity="0.4"/>
+    </svg>
+  </div>
+  <div class="corner tr">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 26 L2 2 L26 2" stroke="#B8975A" stroke-width="1" fill="none" opacity="0.7"/>
+      <path d="M6 22 L6 6 L22 6" stroke="#B8975A" stroke-width="0.5" fill="none" opacity="0.4"/>
+    </svg>
+  </div>
+  <div class="corner bl">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 26 L2 2 L26 2" stroke="#B8975A" stroke-width="1" fill="none" opacity="0.7"/>
+      <path d="M6 22 L6 6 L22 6" stroke="#B8975A" stroke-width="0.5" fill="none" opacity="0.4"/>
+    </svg>
+  </div>
+  <div class="corner br">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 26 L2 2 L26 2" stroke="#B8975A" stroke-width="1" fill="none" opacity="0.7"/>
+      <path d="M6 22 L6 6 L22 6" stroke="#B8975A" stroke-width="0.5" fill="none" opacity="0.4"/>
+    </svg>
+  </div>
+
+  <div class="cover-label">Wedding Invitation</div>
+
+  <div class="cover-names">
+    <div class="kr">박상언 · 권미지</div>
+    <div class="en">
+      Sangeon
+      <span class="ampersand">&</span>
+      Miji
+    </div>
+  </div>
+
+  <div class="cover-divider"></div>
+
+  <div class="cover-date">
+    <div class="day">Saturday · October 17, 2026</div>
+    <div class="full">오후 2시 · 원주 인터불고</div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ── 인사말 ── -->
+<section class="section greeting">
+  <span class="section-label">Invitation</span>
+  <div class="gold-line"></div>
+  <p>
+    서로가 마주보며 다져온 사랑을<br>
+    이제 함께 걸어갈 큰 사랑으로 키우고자 합니다.
+    <span class="em">"두 사람이 하나가 되는 날"</span>
+    저희의 결혼을 축복해 주실<br>
+    소중한 분들을 초대합니다.
+  </p>
+
+  <div style="margin-top: 40px; text-align: center;">
+    <div style="font-family:'Noto Sans KR',sans-serif; font-size:13px; color:var(--light); font-weight:300; line-height:2.2; letter-spacing:0.05em;">
+      박○○ · 김○○ 의 아들 <strong style="color:var(--dark); font-weight:400;">상언</strong><br>
+      권○○ · 이○○ 의 딸 <strong style="color:var(--dark); font-weight:400;">미지</strong>
+    </div>
+    <div style="margin-top:6px; font-size:11px; color:var(--gold); font-family:'Cormorant Garamond',serif; letter-spacing:0.2em;">
+      ※ 부모님 성함을 입력해 주세요
+    </div>
+  </div>
+</section>
+
+<!-- ── 예식 정보 ── -->
+<section class="section">
+  <span class="section-label">Date & Venue</span>
+  <div class="gold-line"></div>
+
+  <div class="info-block">
+    <div class="info-title">일시</div>
+    <div class="info-value">2026년 10월 17일 토요일</div>
+    <div class="info-value" style="margin-top:4px;">오후 2시</div>
+  </div>
+
+  <div class="info-sep"></div>
+
+  <div class="info-block">
+    <div class="info-title">장소</div>
+    <div class="info-value">원주 인터불고</div>
+    <div style="font-family:'Noto Sans KR',sans-serif; font-size:13px; color:var(--light); font-weight:300; margin-top:4px; letter-spacing:0.03em;">
+      ○층 ○○홀
+    </div>
+    <div style="font-size:11px; color:var(--gold); font-family:'Cormorant Garamond',serif; letter-spacing:0.15em; margin-top:4px;">
+      ※ 홀 이름을 입력해 주세요
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:10px;">
+    <span class="dday-badge" id="dday-badge">D - ...</span>
+  </div>
+</section>
+
+<!-- ── 사진 갤러리 ── -->
+<section class="section">
+  <span class="section-label">Gallery</span>
+  <div class="gold-line"></div>
+  <div class="gallery-placeholder">📷 사진을 여기에 넣어주세요</div>
+  <div class="gallery-grid">
+    <div class="gallery-item">Photo</div>
+    <div class="gallery-item">Photo</div>
+    <div class="gallery-item">Photo</div>
+    <div class="gallery-item">Photo</div>
+  </div>
+  <p class="gallery-note">실제 사진 파일을 GitHub에 올리면 표시됩니다</p>
+</section>
+
+<!-- ── 오시는 길 ── -->
+<section class="section">
+  <span class="section-label">Location</span>
+  <div class="gold-line"></div>
+
+  <div class="map-box">
+    <div class="map-icon">📍</div>
+    <div class="map-name">원주 인터불고</div>
+    <div class="map-addr">
+      강원특별자치도 원주시 ○○로 ○○<br>
+      <span style="font-size:11px; color:var(--gold);">※ 정확한 주소를 입력해 주세요</span>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px;">
+      <a href="https://map.kakao.com/?q=원주인터불고" class="btn" target="_blank">카카오맵</a>
+      <a href="https://naver.me/원주인터불고" class="btn" target="_blank">네이버지도</a>
+    </div>
+  </div>
+
+  <div class="transport-list">
+    <div class="transport-item">
+      <div class="transport-icon">🚗</div>
+      <div>
+        <div class="transport-label">자가용</div>
+        <div class="transport-desc">내비게이션 "원주 인터불고" 검색<br>주차 가능 (무료)</div>
+      </div>
+    </div>
+    <div class="transport-item">
+      <div class="transport-icon">🚌</div>
+      <div>
+        <div class="transport-label">버스</div>
+        <div class="transport-desc">○○번 버스 이용 → ○○정류장 하차<br>도보 약 ○분</div>
+      </div>
+    </div>
+    <div class="transport-item">
+      <div class="transport-icon">🚆</div>
+      <div>
+        <div class="transport-label">기차</div>
+        <div class="transport-desc">원주역 하차 → 택시 약 ○분<br>원주기업도시역 하차 → 택시 약 ○분</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 계좌번호 ── -->
+<section class="section">
+  <span class="section-label">Account</span>
+  <div class="gold-line"></div>
+  <div style="text-align:center; margin-bottom:24px; font-family:'Noto Serif KR',serif; font-size:14px; color:var(--mid); font-weight:300; line-height:1.9; word-break:keep-all;">
+    참석이 어려우신 분들께서는<br>마음만 전달해 주셔도 감사히 받겠습니다.
+  </div>
+
+  <div class="account-wrap">
+    <div class="account-card">
+      <div class="account-who">신랑측 — 박상언</div>
+      <div style="overflow:hidden;">
+        <button class="copy-btn" onclick="copyAccount('신랑-계좌번호를-입력해주세요', this)">Copy</button>
+        <div class="account-bank">○○은행</div>
+        <div class="account-num">000 - 0000 - 0000</div>
+        <div class="account-name">예금주 박상언</div>
+        <div style="font-size:11px; color:var(--gold); font-family:'Cormorant Garamond',serif; margin-top:4px;">※ 계좌번호를 입력해 주세요</div>
+      </div>
+    </div>
+
+    <div class="account-card">
+      <div class="account-who">신부측 — 권미지</div>
+      <div style="overflow:hidden;">
+        <button class="copy-btn" onclick="copyAccount('신부-계좌번호를-입력해주세요', this)">Copy</button>
+        <div class="account-bank">○○은행</div>
+        <div class="account-num">000 - 0000 - 0000</div>
+        <div class="account-name">예금주 권미지</div>
+        <div style="font-size:11px; color:var(--gold); font-family:'Cormorant Garamond',serif; margin-top:4px;">※ 계좌번호를 입력해 주세요</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 카카오톡 공유 ── -->
+<div class="kakao-wrap">
+  <span class="kakao-label">Share</span>
+  <p class="kakao-msg">
+    소중한 분들에게<br>청첩장을 전해보세요
+  </p>
+  <button class="kakao-btn" onclick="shareKakao()">
+    <svg viewBox="0 0 24 24" fill="#3C1E1E" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.76 1.665 5.19 4.2 6.6l-1.05 3.9 4.5-2.97A11.5 11.5 0 0012 18.6c5.523 0 10-3.477 10-7.8S17.523 3 12 3z"/>
+    </svg>
+    카카오톡으로 공유하기
+  </button>
+  <p style="margin-top:14px; font-size:11px; color:rgba(184,151,90,0.4); font-family:'Cormorant Garamond',serif; letter-spacing:0.2em;">
+    Kakao SDK 연동 필요 (GitHub Pages 배포 후 활성화)
+  </p>
+</div>
+
+<!-- ── 푸터 ── -->
+<footer class="footer">
+  <div class="footer-names">Sangeon &amp; Miji</div>
+  <div class="footer-date">2026 · 10 · 17</div>
+</footer>
+
+<script>
+  // D-Day 계산
+  const weddingDate = new Date('2026-10-17T14:00:00');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const diff = Math.ceil((weddingDate - today) / (1000 * 60 * 60 * 24));
+  const badge = document.getElementById('dday-badge');
+  if (diff > 0) badge.textContent = 'D - ' + diff;
+  else if (diff === 0) badge.textContent = 'D - Day';
+  else badge.textContent = 'D + ' + Math.abs(diff);
+
+  // 계좌번호 복사
+  function copyAccount(num, btn) {
+    navigator.clipboard.writeText(num).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    }).catch(() => {
+      alert('계좌번호: ' + num);
+    });
+  }
+
+  // 카카오 공유 (SDK 연동 후 활성화)
+  function shareKakao() {
+    if (typeof Kakao !== 'undefined' && Kakao.isInitialized()) {
+      Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '박상언 ♥ 권미지 결혼식에 초대합니다',
+          description: '2026년 10월 17일 오후 2시 · 원주 인터불고',
+          imageUrl: '', // 커플 사진 URL 입력
+          link: { mobileWebUrl: window.location.href, webUrl: window.location.href }
+        }
+      });
+    } else {
+      // SDK 미연동 시 URL 복사
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('링크가 복사되었습니다!\n카카오톡에 붙여넣기 해주세요 😊');
+      });
+    }
+  }
+</script>
+</body>
+</html>
