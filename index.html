@@ -39,14 +39,25 @@
     position: relative;
     overflow: hidden;
   }
-
-  .cover::before {
-    content: '';
+  /* 커버 배경 이미지 (images/cover.jpg 업로드 시 자동 표시) */
+  .cover-bg {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(184,151,90,0.18) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(184,151,90,0.12) 0%, transparent 70%);
+    background-image: url('images/cover.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    transition: opacity 0.5s ease;
+  }
+  .cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(44,40,32,0.55) 0%,
+      rgba(44,40,32,0.35) 40%,
+      rgba(44,40,32,0.65) 100%
+    );
   }
 
   .cover-border {
@@ -252,62 +263,161 @@
     margin: 0 auto;
   }
 
-  .dday-badge {
-    display: inline-block;
-    border: 1px solid var(--gold);
-    padding: 8px 24px;
+  .dday-wrap {
     margin-top: 30px;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
-    letter-spacing: 0.3em;
-    color: var(--gold);
-    text-transform: uppercase;
-  }
-
-  /* ── 갤러리 ── */
-  .gallery-placeholder {
-    background: rgba(184,151,90,0.06);
-    border: 1px dashed rgba(184,151,90,0.35);
-    border-radius: 2px;
-    padding: 50px 20px;
     text-align: center;
-    color: var(--light);
-    font-size: 13px;
+  }
+  .dday-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: rgba(184,151,90,0.6);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .dday-timer {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    align-items: flex-end;
+  }
+  .dday-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 48px;
+  }
+  .dday-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .dday-unit-label {
     font-family: 'Noto Sans KR', sans-serif;
+    font-size: 10px;
+    color: var(--light);
     font-weight: 300;
-    letter-spacing: 0.05em;
-    margin-bottom: 12px;
+    letter-spacing: 0.15em;
+    margin-top: 4px;
+  }
+  .dday-sep {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    color: rgba(184,151,90,0.4);
+    margin-bottom: 14px;
+    line-height: 1;
   }
 
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    margin-top: 8px;
+  /* ── 갤러리 캐러셀 ── */
+  .gallery-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0 10px;
   }
-
-  .gallery-item {
-    aspect-ratio: 1;
-    background: rgba(184,151,90,0.08);
-    border: 1px dashed rgba(184,151,90,0.25);
-    border-radius: 2px;
+  .gallery-track {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 260px;
+    position: relative;
+    perspective: 800px;
+  }
+  .gallery-slide {
+    position: absolute;
+    width: 200px;
+    height: 240px;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+    cursor: pointer;
+    user-select: none;
+  }
+  .gallery-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+    -webkit-user-drag: none;
+  }
+  .gallery-slide.empty {
+    background: rgba(184,151,90,0.08);
+    border: 1px dashed rgba(184,151,90,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
     color: var(--gold-light);
     font-size: 11px;
     font-family: 'Cormorant Garamond', serif;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.15em;
   }
-
-  .gallery-note {
+  /* 중앙 */
+  .gallery-slide.pos-0 {
+    transform: translateX(0) rotateY(0deg) scale(1);
+    z-index: 3;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  }
+  /* 오른쪽 */
+  .gallery-slide.pos-1 {
+    transform: translateX(150px) rotateY(-45deg) scale(0.72);
+    z-index: 2;
+    opacity: 0.7;
+  }
+  /* 왼쪽 */
+  .gallery-slide.pos-m1 {
+    transform: translateX(-150px) rotateY(45deg) scale(0.72);
+    z-index: 2;
+    opacity: 0.7;
+  }
+  /* 멀리 오른쪽 */
+  .gallery-slide.pos-far {
+    transform: translateX(220px) rotateY(-55deg) scale(0.5);
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* 멀리 왼쪽 */
+  .gallery-slide.pos-mfar {
+    transform: translateX(-220px) rotateY(55deg) scale(0.5);
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(184,151,90,0.45);
+    background: rgba(250,247,242,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s;
+  }
+  .gallery-arrow:active { background: rgba(184,151,90,0.2); }
+  .gallery-arrow svg { width: 16px; height: 16px; }
+  .gallery-arrow.left { left: 4px; }
+  .gallery-arrow.right { right: 4px; }
+  .gallery-counter {
     text-align: center;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 12px;
-    color: var(--light);
     margin-top: 14px;
-    font-weight: 300;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--light);
   }
+  .gallery-counter .cur { color: var(--gold); font-size: 15px; }
 
   /* ── 지도 ── */
   .map-box {
@@ -668,6 +778,10 @@
 
 <!-- ── 커버 ── -->
 <section class="cover">
+  <!-- 커버 배경: 나중에 커플 사진으로 교체 가능 -->
+  <div class="cover-bg" id="cover-bg"></div>
+  <div class="cover-overlay"></div>
+
   <div class="cover-border"></div>
   <div class="corner tl">
     <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -694,7 +808,7 @@
     </svg>
   </div>
 
-  <div class="cover-label">Wedding Invitation</div>
+  <div class="cover-label">We Are Getting Married</div>
 
   <div class="cover-names">
     <div class="kr">박상언 · 권미지</div>
@@ -709,7 +823,7 @@
 
   <div class="cover-date">
     <div class="day">Saturday · October 17, 2026</div>
-    <div class="full">오후 2시 · 원주 인터불고</div>
+    <div class="full">오후 2시 · 호텔인터불고원주 다이아몬드홀</div>
   </div>
 
   <div class="scroll-hint">
@@ -730,10 +844,14 @@
     소중한 분들을 초대합니다.
   </p>
 
-  <div style="margin-top: 40px; text-align: center;">
-    <div style="font-family:'Noto Sans KR',sans-serif; font-size:13px; color:var(--light); font-weight:300; line-height:2.2; letter-spacing:0.05em;">
-      박기범 · 이혜진 의 아들 <strong style="color:var(--dark); font-weight:400;">박상언</strong><br>
-      권성달 · 김명화 의 딸 <strong style="color:var(--dark); font-weight:400;">권미지</strong>
+  <div style="margin-top:40px; display:flex; flex-direction:column; align-items:center; gap:8px;">
+    <div style="display:flex; align-items:baseline; gap:0; font-family:'Noto Sans KR',sans-serif; font-size:13px; font-weight:300; line-height:1.8; letter-spacing:0.04em;">
+      <span style="color:var(--light); white-space:nowrap;">박기범 · 이혜진 의 아들&nbsp;</span>
+      <strong style="color:var(--dark); font-weight:500; white-space:nowrap;">박상언</strong>
+    </div>
+    <div style="display:flex; align-items:baseline; gap:0; font-family:'Noto Sans KR',sans-serif; font-size:13px; font-weight:300; line-height:1.8; letter-spacing:0.04em;">
+      <span style="color:var(--light); white-space:nowrap;">권성달 · 김명화 의 딸&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <strong style="color:var(--dark); font-weight:500; white-space:nowrap;">권미지</strong>
     </div>
   </div>
 </section>
@@ -753,17 +871,35 @@
 
   <div class="info-block">
     <div class="info-title">장소</div>
-    <div class="info-value">원주 인터불고</div>
+    <div class="info-value">호텔인터불고원주</div>
     <div style="font-family:'Noto Sans KR',sans-serif; font-size:13px; color:var(--light); font-weight:300; margin-top:4px; letter-spacing:0.03em;">
-      ○층 ○○홀
-    </div>
-    <div style="font-size:11px; color:var(--gold); font-family:'Cormorant Garamond',serif; letter-spacing:0.15em; margin-top:4px;">
-      ※ 홀 이름을 입력해 주세요
+      1층 다이아몬드홀
     </div>
   </div>
 
-  <div style="text-align:center; margin-top:10px;">
-    <span class="dday-badge" id="dday-badge">D - ...</span>
+  <div class="dday-wrap">
+    <div class="dday-label">결혼식까지</div>
+    <div class="dday-timer">
+      <div class="dday-unit">
+        <div class="dday-num" id="cd-days">--</div>
+        <div class="dday-unit-label">일</div>
+      </div>
+      <div class="dday-sep">:</div>
+      <div class="dday-unit">
+        <div class="dday-num" id="cd-hours">--</div>
+        <div class="dday-unit-label">시간</div>
+      </div>
+      <div class="dday-sep">:</div>
+      <div class="dday-unit">
+        <div class="dday-num" id="cd-mins">--</div>
+        <div class="dday-unit-label">분</div>
+      </div>
+      <div class="dday-sep">:</div>
+      <div class="dday-unit">
+        <div class="dday-num" id="cd-secs">--</div>
+        <div class="dday-unit-label">초</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -771,14 +907,24 @@
 <section class="section">
   <span class="section-label">Gallery</span>
   <div class="gold-line"></div>
-  <div class="gallery-placeholder">📷 사진을 여기에 넣어주세요</div>
-  <div class="gallery-grid">
-    <div class="gallery-item">Photo</div>
-    <div class="gallery-item">Photo</div>
-    <div class="gallery-item">Photo</div>
-    <div class="gallery-item">Photo</div>
+  <div class="gallery-carousel" id="gallery-carousel">
+    <div class="gallery-track" id="gallery-track">
+      <!-- JS로 동적 생성 -->
+    </div>
+    <button class="gallery-arrow left" id="gallery-prev" aria-label="이전 사진">
+      <svg viewBox="0 0 16 16" fill="none" stroke="#B8975A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 12L6 8l4-4"/>
+      </svg>
+    </button>
+    <button class="gallery-arrow right" id="gallery-next" aria-label="다음 사진">
+      <svg viewBox="0 0 16 16" fill="none" stroke="#B8975A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 4l4 4-4 4"/>
+      </svg>
+    </button>
   </div>
-  <p class="gallery-note">실제 사진 파일을 GitHub에 올리면 표시됩니다</p>
+  <div class="gallery-counter" id="gallery-counter">
+    <span class="cur">1</span> / <span id="gallery-total">0</span>
+  </div>
 </section>
 
 <!-- ── 오시는 길 ── -->
@@ -788,14 +934,14 @@
 
   <div class="map-box">
     <div class="map-icon">📍</div>
-    <div class="map-name">원주 인터불고</div>
+    <div class="map-name">호텔인터불고원주 컨벤션호텔</div>
     <div class="map-addr">
-      강원특별자치도 원주시 ○○로 ○○<br>
-      <span style="font-size:11px; color:var(--gold);">※ 정확한 주소를 입력해 주세요</span>
+      강원 원주시 동부순환로 200<br>
+      1층 다이아몬드홀
     </div>
     <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px;">
-      <a href="https://map.kakao.com/?q=원주인터불고" class="btn" target="_blank">카카오맵</a>
-      <a href="https://naver.me/원주인터불고" class="btn" target="_blank">네이버지도</a>
+      <a href="https://map.kakao.com/?q=호텔인터불고원주" class="btn" target="_blank">카카오맵</a>
+      <a href="https://map.naver.com/p/search/강원 원주시 동부순환로 200 호텔인터불고원주" class="btn" target="_blank">네이버지도</a>
     </div>
   </div>
 
@@ -846,11 +992,32 @@
     <div class="account-card">
       <div class="account-who">신부측 — 권미지</div>
       <div style="overflow:hidden;">
-        <button class="copy-btn" onclick="copyAccount('신부-계좌번호를-입력해주세요', this)">Copy</button>
+        <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
         <div class="account-bank">○○은행</div>
         <div class="account-num">000 - 0000 - 0000</div>
         <div class="account-name">예금주 권미지</div>
-        <div style="font-size:11px; color:var(--gold); font-family:'Cormorant Garamond',serif; margin-top:4px;">※ 계좌번호를 입력해 주세요</div>
+      </div>
+    </div>
+
+    <div style="margin: 8px 0 4px; font-family:'Cormorant Garamond',serif; font-size:10px; letter-spacing:0.35em; color:rgba(184,151,90,0.6); text-align:center; text-transform:uppercase;">Parents</div>
+
+    <div class="account-card">
+      <div class="account-who">신랑 아버지 — 박기범</div>
+      <div style="overflow:hidden;">
+        <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
+        <div class="account-bank">○○은행</div>
+        <div class="account-num">000 - 0000 - 0000</div>
+        <div class="account-name">예금주 박기범</div>
+      </div>
+    </div>
+
+    <div class="account-card">
+      <div class="account-who">신부 아버지 — 권성달</div>
+      <div style="overflow:hidden;">
+        <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
+        <div class="account-bank">○○은행</div>
+        <div class="account-num">000 - 0000 - 0000</div>
+        <div class="account-name">예금주 권성달</div>
       </div>
     </div>
   </div>
@@ -904,17 +1071,34 @@
   //     </div>`;
   // }
 
-  // ── D-Day 계산 ──
-  const weddingDate = new Date('2026-10-17T14:00:00');
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const diff = Math.ceil((weddingDate - today) / (1000 * 60 * 60 * 24));
-  const badge = document.getElementById('dday-badge');
-  if (badge) {
-    if (diff > 0) badge.textContent = 'D - ' + diff;
-    else if (diff === 0) badge.textContent = 'D - Day';
-    else badge.textContent = 'D + ' + Math.abs(diff);
+  // ── 카운트다운 타이머 ──
+  function updateCountdown() {
+    const weddingDate = new Date('2026-10-17T14:00:00');
+    const now = new Date();
+    const gap = weddingDate - now;
+    if (gap <= 0) {
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = '00';
+      });
+      return;
+    }
+    const days  = Math.floor(gap / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins  = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+    const secs  = Math.floor((gap % (1000 * 60)) / 1000);
+    const fmt = n => String(n).padStart(2, '0');
+    const dEl = document.getElementById('cd-days');
+    const hEl = document.getElementById('cd-hours');
+    const mEl = document.getElementById('cd-mins');
+    const sEl = document.getElementById('cd-secs');
+    if (dEl) dEl.textContent = days;
+    if (hEl) hEl.textContent = fmt(hours);
+    if (mEl) mEl.textContent = fmt(mins);
+    if (sEl) sEl.textContent = fmt(secs);
   }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 
   // ── 계좌번호 복사 ──
   function copyAccount(num, btn) {
@@ -965,8 +1149,10 @@
 
   function toggleBgm() {
     if (!BGM_SRC) {
-      bgmBtn.style.opacity = '0.4';
-      setTimeout(() => bgmBtn.style.opacity = '1', 300);
+      // BGM 파일 없어도 버튼 시각적 토글은 작동
+      bgmPlaying = !bgmPlaying;
+      if (bgmPlaying) bgmBtn.classList.add('playing');
+      else bgmBtn.classList.remove('playing');
       return;
     }
     if (!audio) {
@@ -985,6 +1171,90 @@
       }).catch(() => {});
     }
   }
+
+  // ── 갤러리 캐러셀 ──
+  // images/ 폴더의 파일을 이름순으로 자동 로드
+  // 사진 파일명을 여기에 추가하면 자동 반영됩니다
+  // GitHub images/ 폴더에 업로드 후 파일명만 추가
+  const GALLERY_IMAGES = [
+    // 예: 'images/photo01.jpg',
+    // 예: 'images/photo02.jpg',
+  ];
+
+  let gCurrent = 0;
+  const track = document.getElementById('gallery-track');
+  const counterCur = document.querySelector('#gallery-counter .cur');
+  const counterTotal = document.getElementById('gallery-total');
+
+  function buildGallery() {
+    track.innerHTML = '';
+    const imgs = GALLERY_IMAGES.length > 0 ? GALLERY_IMAGES : [];
+    const total = imgs.length || 1;
+    counterTotal.textContent = imgs.length || 0;
+    counterCur.textContent = imgs.length ? gCurrent + 1 : 0;
+
+    if (imgs.length === 0) {
+      const el = document.createElement('div');
+      el.className = 'gallery-slide empty pos-0';
+      el.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4B483" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>사진을 준비 중입니다</span>';
+      track.appendChild(el);
+      return;
+    }
+
+    imgs.forEach((src, i) => {
+      const el = document.createElement('div');
+      el.className = 'gallery-slide';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = '웨딩 사진 ' + (i + 1);
+      el.appendChild(img);
+      el.addEventListener('click', () => { if (i !== gCurrent) { gCurrent = i; renderGallery(); } });
+      track.appendChild(el);
+    });
+    renderGallery();
+  }
+
+  function renderGallery() {
+    if (!GALLERY_IMAGES.length) return;
+    const slides = track.querySelectorAll('.gallery-slide');
+    const total = slides.length;
+    counterCur.textContent = gCurrent + 1;
+    counterTotal.textContent = total;
+    slides.forEach((slide, i) => {
+      slide.className = 'gallery-slide';
+      const diff = i - gCurrent;
+      if (diff === 0) slide.classList.add('pos-0');
+      else if (diff === 1 || diff === -(total - 1)) slide.classList.add('pos-1');
+      else if (diff === -1 || diff === total - 1) slide.classList.add('pos-m1');
+      else if (diff > 1) slide.classList.add('pos-far');
+      else slide.classList.add('pos-mfar');
+    });
+  }
+
+  function goPrev() {
+    if (!GALLERY_IMAGES.length) return;
+    gCurrent = (gCurrent - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
+    renderGallery();
+  }
+  function goNext() {
+    if (!GALLERY_IMAGES.length) return;
+    gCurrent = (gCurrent + 1) % GALLERY_IMAGES.length;
+    renderGallery();
+  }
+
+  document.getElementById('gallery-prev').addEventListener('click', goPrev);
+  document.getElementById('gallery-next').addEventListener('click', goNext);
+
+  // 스와이프
+  let tsX = 0;
+  track.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tsX;
+    if (Math.abs(dx) > 40) { dx < 0 ? goNext() : goPrev(); }
+  }, { passive: true });
+
+  buildGallery();
+
 </script>
 </body>
 </html>
