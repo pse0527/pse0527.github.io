@@ -45,161 +45,125 @@
   .intro-line {
     font-family: 'Noto Serif KR', serif;
     font-weight: 300;
-    font-size: 22px;
-    letter-spacing: 0.18em;
+    font-size: 24px;
+    letter-spacing: 0.22em;
     color: var(--text);
+    display: flex;
+    gap: 0;
+  }
+  .intro-char {
+    display: inline-block;
     opacity: 0;
-    transform: translateY(16px);
-    animation: introFadeUp 0.9s ease forwards;
+    animation: charWrite 0.25s ease forwards;
   }
   .intro-line.sub {
     font-size: 13px;
-    letter-spacing: 0.35em;
+    letter-spacing: 0.4em;
     color: var(--gold);
-    margin-top: 14px;
-    animation-delay: 0.5s;
+    margin-top: 16px;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
+    opacity: 0;
+    animation: introFadeUp 0.8s ease forwards;
   }
   .intro-overlay.fade-out {
-    animation: introOut 0.7s ease 2.2s forwards;
+    animation: introOut 0.7s ease forwards;
+  }
+  @keyframes charWrite {
+    0%   { opacity: 0; transform: translateY(6px) scaleX(0.85); }
+    60%  { opacity: 1; transform: translateY(-2px) scaleX(1.02); }
+    100% { opacity: 1; transform: translateY(0) scaleX(1); }
   }
   @keyframes introFadeUp {
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes introOut {
     to { opacity: 0; pointer-events: none; }
   }
 
-  /* ── 커버 ── */
+  /* ── 커버 (메인.png 스타일) ── */
   .cover {
+    width: 100%;
     min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 40px;
-    background: var(--dark);
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #e8e0d8;
   }
-  /* 커버 배경 이미지 (images/cover.jpg 업로드 시 자동 표시) */
+  /* 대문사진: images/cover.jpg 업로드 시 자동 표시 */
   .cover-bg {
     position: absolute;
     inset: 0;
     background-image: url('images/cover.jpg');
     background-size: cover;
-    background-position: center 30%;
+    background-position: center top;
     background-repeat: no-repeat;
-    transition: opacity 0.5s ease;
   }
   .cover-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(30,20,10,0.30) 0%,
-      rgba(30,20,10,0.10) 40%,
-      rgba(30,20,10,0.55) 100%
+      rgba(0,0,0,0.0) 0%,
+      rgba(0,0,0,0.0) 55%,
+      rgba(255,255,255,0.85) 80%,
+      rgba(255,255,255,1) 100%
     );
   }
-
-  .cover-border {
+  /* 하단 정보 영역 */
+  .cover-bottom {
     position: absolute;
-    inset: 20px;
-    border: 1px solid rgba(184,151,90,0.35);
-    pointer-events: none;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 28px 0 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: white;
   }
-  .cover-border::before {
-    content: '';
-    position: absolute;
-    inset: 6px;
-    border: 1px solid rgba(184,151,90,0.15);
-  }
-
-  .corner {
-    position: absolute;
-    width: 28px;
-    height: 28px;
-  }
-  .corner svg { width: 100%; height: 100%; }
-  .corner.tl { top: 20px; left: 20px; }
-  .corner.tr { top: 20px; right: 20px; transform: scaleX(-1); }
-  .corner.bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
-  .corner.br { bottom: 20px; right: 20px; transform: scale(-1); }
-
-  .cover-label {
+  .cover-date-num {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 11px;
-    letter-spacing: 0.4em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 40px;
-    opacity: 0;
-    animation: fadeUp 1s ease 0.3s forwards;
+    font-size: 38px;
+    font-weight: 400;
+    color: var(--dark);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 2px;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgba(74,55,40,0.4);
   }
-
-  .cover-names {
-    text-align: center;
-    opacity: 0;
-    animation: fadeUp 1s ease 0.6s forwards;
+  .cover-date-detail {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    color: var(--mid);
+    margin-bottom: 2px;
   }
-
-  .cover-names .kr {
-    font-family: 'Noto Serif KR', serif;
+  .cover-venue-name {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
     font-weight: 300;
-    font-size: 13px;
-    letter-spacing: 0.25em;
-    color: rgba(245,237,216,0.6);
+    color: var(--light);
+    letter-spacing: 0.05em;
     margin-bottom: 10px;
   }
-
-  .cover-names .en {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 52px;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--gold-pale);
-    line-height: 1.1;
+  .cover-names-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-
-  .ampersand {
-    display: block;
-    font-size: 38px;
-    color: var(--gold);
-    margin: 6px 0;
-  }
-
-  .cover-divider {
-    width: 1px;
-    height: 50px;
-    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-    margin: 36px auto;
-    opacity: 0;
-    animation: fadeIn 1s ease 0.9s forwards;
-  }
-
-  .cover-date {
-    text-align: center;
-    opacity: 0;
-    animation: fadeUp 1s ease 1.1s forwards;
-  }
-
-  .cover-date .day {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
-    letter-spacing: 0.35em;
-    color: var(--gold-light);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .cover-date .full {
+  .cover-name-kr {
     font-family: 'Noto Serif KR', serif;
-    font-weight: 300;
-    font-size: 14px;
-    letter-spacing: 0.15em;
-    color: rgba(245,237,216,0.75);
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--dark);
+    letter-spacing: 0.12em;
   }
 
   .scroll-hint {
@@ -305,6 +269,61 @@
     height: 40px;
     background: rgba(184,151,90,0.3);
     margin: 0 auto;
+  }
+
+  /* ── 달력 ── */
+  .cal-wrap {
+    margin: 20px 0 10px;
+    padding: 0 4px;
+  }
+  .cal-month {
+    text-align: center;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--gold);
+    margin-bottom: 16px;
+    letter-spacing: 0.1em;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px 0;
+  }
+  .cal-head {
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--light);
+    padding: 4px 0 10px;
+    letter-spacing: 0.05em;
+  }
+  .cal-head.sun { color: var(--gold); }
+  .cal-day {
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text);
+    padding: 6px 0;
+    line-height: 1;
+  }
+  .cal-day.sun { color: var(--gold); }
+  .cal-day.sat { color: #9CB4C8; }
+  .cal-empty { padding: 6px 0; }
+  .cal-today {
+    background: var(--gold);
+    color: white !important;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-weight: 400;
+    padding: 0 !important;
   }
 
   .dday-wrap {
@@ -486,6 +505,16 @@
     margin-bottom: 6px;
     letter-spacing: 0.05em;
   }
+
+
+  .map-name { font-family:'Noto Serif KR',serif; font-weight:400; font-size:16px; color:var(--dark); margin-bottom:4px; }
+  .map-sub-hall { font-family:'Noto Sans KR',sans-serif; font-size:13px; color:var(--mid); font-weight:300; margin-bottom:2px; }
+  .map-img-wrap { position:relative; margin:14px 0 0; border-radius:8px; overflow:hidden; border:1px solid rgba(0,0,0,0.08); }
+  .map-static-img { width:100%; height:200px; object-fit:cover; display:block; }
+  .map-naver-badge { position:absolute; bottom:6px; left:8px; font-size:10px; color:rgba(0,0,0,0.45); font-family:'Noto Sans KR',sans-serif; }
+  .map-btns { display:flex; gap:8px; margin-top:10px; }
+  .map-btn { flex:1; padding:11px 4px; border:1px solid rgba(0,0,0,0.1); border-radius:8px; text-align:center; font-family:'Noto Sans KR',sans-serif; font-size:12px; font-weight:400; color:var(--dark); text-decoration:none; background:white; display:flex; align-items:center; justify-content:center; gap:4px; letter-spacing:0.02em; }
+  .map-btn:active { background:var(--soft); }
 
   .map-addr {
     font-family: 'Noto Sans KR', sans-serif;
@@ -759,28 +788,9 @@
   }
   /* 켠 상태엔 슬래시 숨김 */
   .bgm-btn.playing .bgm-slash { display: none; }
-
-  .bgm-wave {
-    display: none;
-    align-items: flex-end;
-    gap: 3px;
-    height: 18px;
-  }
   .bgm-btn.playing .bgm-icon-wrap svg { display: none; }
   .bgm-btn.playing .bgm-slash { display: none; }
-  .bgm-btn.playing .bgm-wave { display: flex; }
-
-  .bgm-wave span {
-    display: block;
-    width: 3px;
-    background: var(--gold);
-    border-radius: 2px;
-    animation: wave 0.8s ease-in-out infinite;
-  }
-  .bgm-wave span:nth-child(1) { height: 8px;  animation-delay: 0s; }
-  .bgm-wave span:nth-child(2) { height: 14px; animation-delay: 0.15s; }
-  .bgm-wave span:nth-child(3) { height: 10px; animation-delay: 0.3s; }
-  .bgm-wave span:nth-child(4) { height: 16px; animation-delay: 0.1s; }
+  .bgm-btn.playing
 
   @keyframes wave {
     0%, 100% { transform: scaleY(0.5); }
@@ -806,74 +816,45 @@
 <body>
 
 <!-- ── 인트로 오버레이 ── -->
-<div class="intro-overlay fade-out" id="intro-overlay">
-  <div class="intro-line">저희 결혼합니다.</div>
-  <div class="intro-line sub">Sangeon &amp; Miji</div>
+<div class="intro-overlay" id="intro-overlay">
+  <div class="intro-line" id="intro-main"></div>
+  <div class="intro-line sub" id="intro-sub">Sangeon &amp; Miji</div>
 </div>
 
 <!-- ── BGM 버튼 (화면 고정) ── -->
 <button class="bgm-btn" id="bgm-btn" onclick="toggleBgm()" aria-label="배경음악 켜기/끄기">
   <div class="bgm-icon-wrap">
-    <svg viewBox="0 0 24 24" fill="none" stroke="#B8975A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#C9965A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M9 18V5l12-2v13"/>
       <circle cx="6" cy="18" r="3"/>
       <circle cx="18" cy="16" r="3"/>
     </svg>
     <span class="bgm-slash"></span>
   </div>
-  <div class="bgm-wave" id="bgm-wave">
-    <span></span><span></span><span></span><span></span>
-  </div>
 </button>
 
 <!-- ── 커버 ── -->
+<!-- 대문사진: images/cover.jpg 파일을 저장소에 업로드하세요 -->
 <section class="cover">
-  <!-- 커버 배경: 나중에 커플 사진으로 교체 가능 -->
-  <div class="cover-bg" id="cover-bg"></div>
+  <div class="cover-bg"></div>
   <div class="cover-overlay"></div>
 
-  <div class="cover-border"></div>
-  <div class="corner tl">
-    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2 26 L2 2 L26 2" stroke="#B8975A" stroke-width="1" fill="none" opacity="0.7"/>
-      <path d="M6 22 L6 6 L22 6" stroke="#B8975A" stroke-width="0.5" fill="none" opacity="0.4"/>
-    </svg>
-  </div>
-  <div class="corner tr">
-    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2 26 L2 2 L26 2" stroke="#B8975A" stroke-width="1" fill="none" opacity="0.7"/>
-      <path d="M6 22 L6 6 L22 6" stroke="#B8975A" stroke-width="0.5" fill="none" opacity="0.4"/>
-    </svg>
-  </div>
-  <div class="corner bl">
-    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2 26 L2 2 L26 2" stroke="#B8975A" stroke-width="1" fill="none" opacity="0.7"/>
-      <path d="M6 22 L6 6 L22 6" stroke="#B8975A" stroke-width="0.5" fill="none" opacity="0.4"/>
-    </svg>
-  </div>
-  <div class="corner br">
-    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2 26 L2 2 L26 2" stroke="#B8975A" stroke-width="1" fill="none" opacity="0.7"/>
-      <path d="M6 22 L6 6 L22 6" stroke="#B8975A" stroke-width="0.5" fill="none" opacity="0.4"/>
-    </svg>
-  </div>
-
-  <div class="cover-label">We Are Getting Married</div>
-
-  <div class="cover-names">
-    <div class="kr">박상언 · 권미지</div>
-    <div class="en">
-      Sangeon
-      <span class="ampersand">&</span>
-      Miji
+  <div class="cover-bottom">
+    <div class="cover-date-num">10.17</div>
+    <div class="cover-date-detail">SAT PM 2:00</div>
+    <div class="cover-venue-name">호텔인터불고원주 1층 다이아몬드홀</div>
+    <div class="cover-names-row">
+      <span class="cover-name-kr">박상언</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(201,150,90,0.8)" stroke-width="1.2" style="flex-shrink:0;">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M8 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z" fill="rgba(201,150,90,0.8)" stroke="none"/>
+        <path d="M14 8c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" fill="none"/>
+      </svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="rgba(201,150,90,0.7)" stroke="none" style="flex-shrink:0;">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+      </svg>
+      <span class="cover-name-kr">권미지</span>
     </div>
-  </div>
-
-  <div class="cover-divider"></div>
-
-  <div class="cover-date">
-    <div class="day">Saturday · October 17, 2026</div>
-    <div class="full">오후 2시 · 호텔인터불고원주 다이아몬드홀</div>
   </div>
 
   <div class="scroll-hint">
@@ -915,6 +896,27 @@
     <div class="info-title">일시</div>
     <div class="info-value">2026년 10월 17일 토요일</div>
     <div class="info-value" style="margin-top:4px;">오후 2시</div>
+  </div>
+
+  <!-- 달력 -->
+  <div class="cal-wrap">
+    <div class="cal-month">10월</div>
+    <div class="cal-grid">
+      <div class="cal-head sun">일</div>
+      <div class="cal-head">월</div>
+      <div class="cal-head">화</div>
+      <div class="cal-head">수</div>
+      <div class="cal-head">목</div>
+      <div class="cal-head">금</div>
+      <div class="cal-head">토</div>
+      <!-- 1일 수요일부터 시작 -->
+      <div class="cal-empty"></div><div class="cal-empty"></div><div class="cal-empty"></div>
+      <div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day sat">4</div>
+      <div class="cal-day sun">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day sat">11</div>
+      <div class="cal-day sun">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day cal-today">17</div><div class="cal-day sat">18</div>
+      <div class="cal-day sun">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day sat">25</div>
+      <div class="cal-day sun">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div>
+    </div>
   </div>
 
   <div class="info-sep"></div>
@@ -983,25 +985,30 @@
   <div class="gold-line"></div>
 
   <div class="map-box">
-    <div class="map-name">호텔인터불고원주 컨벤션호텔</div>
-    <div class="map-addr">
-      강원 원주시 동부순환로 200<br>
-      1층 다이아몬드홀
+    <div class="map-name">호텔인터불고원주 컨벤션호텔 <span style="font-size:16px;">📞</span></div>
+    <div class="map-sub-hall">1층 다이아몬드홀</div>
+    <div class="map-addr">강원 원주시 동부순환로 200</div>
+    <!-- 네이버 정적 지도 이미지 -->
+    <div class="map-img-wrap">
+      <img
+        src="https://naveropenapi.apigw.ntruss.com/map-static/v2/raster?w=360&h=200&center=127.9603,37.3448&level=14&markers=type:d|size:mid|pos:127.9603%2037.3448"
+        alt="호텔인터불고원주 지도"
+        class="map-static-img"
+        onerror="this.parentElement.innerHTML='<div style='background:#f0ebe4;height:200px;display:flex;align-items:center;justify-content:center;border-radius:8px;'><a href='https://naver.me/G9vFmzQf' target='_blank' style='color:var(--gold);font-size:13px;text-decoration:none;'>지도 보기 →</a></div>'"
+      >
+      <div class="map-naver-badge">© NAVER Corp.</div>
     </div>
-    <!-- 네이버 지도 iframe -->
-    <div style="width:100%; height:200px; border-radius:4px; overflow:hidden; margin:14px 0;">
-      <iframe
-        src="https://map.naver.com/p/entry/place/13481816?c=15,0,0,0,dh&isCorrectAnswer=true"
-        width="100%" height="200"
-        style="border:none; display:block;"
-        title="호텔인터불고원주 위치"
-        loading="lazy"
-        allowfullscreen>
-      </iframe>
-    </div>
-    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px;">
-      <a href="https://map.kakao.com/?q=호텔인터불고원주" class="btn" target="_blank">카카오맵</a>
-      <a href="https://naver.me/G9vFmzQf" class="btn" target="_blank">네이버지도</a>
+    <!-- 3버튼: 지도.png 스타일 -->
+    <div class="map-btns">
+      <a href="https://apis.openapi.sk.com/tmap/app/routes?appKey=undefined&name=호텔인터불고원주&lon=127.9603&lat=37.3448" class="map-btn tmap" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tmobile.svg" width="14" style="opacity:0.7"> 티맵
+      </a>
+      <a href="https://kakaomap.com/actions?name=호텔인터불고원주&x=127.9603&y=37.3448" class="map-btn kakao" target="_blank">
+        🗺 카카오내비
+      </a>
+      <a href="https://naver.me/G9vFmzQf" class="map-btn naver" target="_blank">
+        📍 네이버지도
+      </a>
     </div>
   </div>
 
@@ -1059,45 +1066,51 @@
       </div>
     </div>
 
-    <div style="margin: 8px 0 4px; font-family:'Cormorant Garamond',serif; font-size:10px; letter-spacing:0.35em; color:rgba(184,151,90,0.6); text-align:center; text-transform:uppercase;">Parents</div>
+    <div style="margin:8px 0 4px; font-family:'Cormorant Garamond',serif; font-size:10px; letter-spacing:0.35em; color:rgba(184,151,90,0.6); text-align:center; text-transform:uppercase;">Parents</div>
 
+    <!-- 신랑측 부모님 한 칸 -->
     <div class="account-card">
-      <div class="account-who">신랑 아버지 — 박기범</div>
-      <div style="overflow:hidden;">
-        <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
-        <div class="account-bank">○○은행</div>
-        <div class="account-num">000 - 0000 - 0000</div>
-        <div class="account-name">예금주 박기범</div>
+      <div class="account-who" style="margin-bottom:14px;">신랑측 부모님</div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div>
+          <div style="overflow:hidden;">
+            <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
+            <div style="font-size:12px; color:var(--mid); margin-bottom:3px; font-family:'Noto Sans KR',sans-serif; font-weight:300;">아버지 박기범</div>
+            <div class="account-bank">○○은행</div>
+            <div class="account-num">000 - 0000 - 0000</div>
+          </div>
+        </div>
+        <div style="border-top:1px solid rgba(201,150,90,0.15); padding-top:14px;">
+          <div style="overflow:hidden;">
+            <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
+            <div style="font-size:12px; color:var(--mid); margin-bottom:3px; font-family:'Noto Sans KR',sans-serif; font-weight:300;">어머니 이혜진</div>
+            <div class="account-bank">○○은행</div>
+            <div class="account-num">000 - 0000 - 0000</div>
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- 신부측 부모님 한 칸 -->
     <div class="account-card">
-      <div class="account-who">신랑 어머니 — 이혜진</div>
-      <div style="overflow:hidden;">
-        <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
-        <div class="account-bank">○○은행</div>
-        <div class="account-num">000 - 0000 - 0000</div>
-        <div class="account-name">예금주 이혜진</div>
-      </div>
-    </div>
-
-    <div class="account-card">
-      <div class="account-who">신부 아버지 — 권성달</div>
-      <div style="overflow:hidden;">
-        <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
-        <div class="account-bank">○○은행</div>
-        <div class="account-num">000 - 0000 - 0000</div>
-        <div class="account-name">예금주 권성달</div>
-      </div>
-    </div>
-
-    <div class="account-card">
-      <div class="account-who">신부 어머니 — 김명화</div>
-      <div style="overflow:hidden;">
-        <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
-        <div class="account-bank">○○은행</div>
-        <div class="account-num">000 - 0000 - 0000</div>
-        <div class="account-name">예금주 김명화</div>
+      <div class="account-who" style="margin-bottom:14px;">신부측 부모님</div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div>
+          <div style="overflow:hidden;">
+            <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
+            <div style="font-size:12px; color:var(--mid); margin-bottom:3px; font-family:'Noto Sans KR',sans-serif; font-weight:300;">아버지 권성달</div>
+            <div class="account-bank">○○은행</div>
+            <div class="account-num">000 - 0000 - 0000</div>
+          </div>
+        </div>
+        <div style="border-top:1px solid rgba(201,150,90,0.15); padding-top:14px;">
+          <div style="overflow:hidden;">
+            <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
+            <div style="font-size:12px; color:var(--mid); margin-bottom:3px; font-family:'Noto Sans KR',sans-serif; font-weight:300;">어머니 김명화</div>
+            <div class="account-bank">○○은행</div>
+            <div class="account-num">000 - 0000 - 0000</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1127,13 +1140,35 @@
 </footer>
 
 <script>
-  // ── 인트로 후 스크롤 잠금 해제 ──
+  // ── 인트로: 한 글자씩 수기 효과 ──
   document.body.style.overflow = 'hidden';
+  const introMain = document.getElementById('intro-main');
+  const introSub  = document.getElementById('intro-sub');
+  const introOverlay = document.getElementById('intro-overlay');
+  const text = '저희 결혼합니다.';
+  const charDelay = 120; // 글자당 ms
+
+  text.split('').forEach((ch, i) => {
+    const span = document.createElement('span');
+    span.className = 'intro-char';
+    span.textContent = ch === ' ' ? ' ' : ch;
+    span.style.animationDelay = (i * charDelay) + 'ms';
+    introMain.appendChild(span);
+  });
+
+  // sub 라인: 메인 끝난 후 등장
+  const subDelay = text.length * charDelay + 200;
+  introSub.style.animationDelay = subDelay + 'ms';
+
+  // 전체 인트로 종료
+  const totalDuration = subDelay + 900 + 700;
   setTimeout(() => {
-    document.body.style.overflow = '';
-    const intro = document.getElementById('intro-overlay');
-    if (intro) setTimeout(() => intro.remove(), 700);
-  }, 2900);
+    introOverlay.style.animation = 'introOut 0.7s ease forwards';
+    setTimeout(() => {
+      introOverlay.remove();
+      document.body.style.overflow = '';
+    }, 700);
+  }, subDelay + 1200);
 
   // ── PC 차단 (개발 중 주석 처리 / 배포 시 아래 주석 해제) ──
   // function isMobile() {
