@@ -107,9 +107,10 @@
     background: linear-gradient(
       to bottom,
       rgba(0,0,0,0.0) 0%,
-      rgba(0,0,0,0.0) 55%,
-      rgba(255,255,255,0.85) 80%,
-      rgba(255,255,255,1) 100%
+      rgba(0,0,0,0.0) 45%,
+      rgba(255,255,255,0.5) 65%,
+      rgba(255,255,255,0.92) 78%,
+      rgba(255,255,255,1) 88%
     );
   }
   /* 하단 정보 영역 */
@@ -118,23 +119,23 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 28px 0 50px;
+    padding: 16px 0 36px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
     background: white;
   }
   .cover-date-num {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 38px;
+    font-size: 34px;
     font-weight: 400;
     color: var(--dark);
     letter-spacing: 0.04em;
     line-height: 1;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
     text-decoration: underline;
-    text-underline-offset: 6px;
+    text-underline-offset: 5px;
     text-decoration-thickness: 1px;
     text-decoration-color: rgba(74,55,40,0.4);
   }
@@ -288,25 +289,27 @@
   .cal-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 2px 0;
+    gap: 1px 0;
+    max-width: 280px;
+    margin: 0 auto;
   }
   .cal-head {
     text-align: center;
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 300;
     color: var(--light);
-    padding: 4px 0 10px;
-    letter-spacing: 0.05em;
+    padding: 3px 0 8px;
+    letter-spacing: 0.02em;
   }
   .cal-head.sun { color: var(--gold); }
   .cal-day {
     text-align: center;
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 300;
     color: var(--text);
-    padding: 6px 0;
+    padding: 5px 0;
     line-height: 1;
   }
   .cal-day.sun { color: var(--gold); }
@@ -316,14 +319,15 @@
     background: var(--gold);
     color: white !important;
     border-radius: 50%;
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
     font-weight: 400;
     padding: 0 !important;
+    font-size: 12px;
   }
 
   .dday-wrap {
@@ -847,7 +851,7 @@
     <div class="cover-venue-name">호텔인터불고원주 1층 다이아몬드홀</div>
     <div class="cover-names-row">
       <span class="cover-name-kr">박상언</span>
-      <span style="color:rgba(201,150,90,0.7); font-size:16px; letter-spacing:0;">♥</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(201,150,90,0.75)" stroke="none" style="flex-shrink:0;margin:0 2px;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
       <span class="cover-name-kr">권미지</span>
     </div>
   </div>
@@ -982,28 +986,27 @@
     <div class="map-name">호텔인터불고원주 컨벤션호텔 <span style="font-size:16px;">📞</span></div>
     <div class="map-sub-hall">1층 다이아몬드홀</div>
     <div class="map-addr">강원 원주시 동부순환로 200</div>
-    <!-- 네이버 지도 실제 지도 (확대/축소 가능) -->
+    <!-- 네이버 지도 (좌표 기반 embed) -->
     <div class="map-img-wrap">
       <iframe
-        src="https://map.naver.com/p/entry/place/13481816?c=14.00,0,0,0,dh"
+        src="https://map.naver.com/v5/embed?type=address&lng=127.9603&lat=37.3448&title=호텔인터불고원주&zoom=15"
         width="100%"
         height="240"
-        style="border:none; display:block; border-radius:8px;"
+        style="border:none; display:block;"
         title="호텔인터불고원주 위치"
-        loading="lazy"
-        allow="geolocation">
+        loading="lazy">
       </iframe>
     </div>
     <!-- 3버튼: 지도.png 스타일 -->
     <div class="map-btns">
-      <a href="https://apis.openapi.sk.com/tmap/app/routes?appKey=undefined&name=호텔인터불고원주&lon=127.9603&lat=37.3448" class="map-btn tmap" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tmobile.svg" width="14" style="opacity:0.7"> 티맵
+      <a href="tmap://route?goalname=호텔인터불고원주&goalx=127.9603&goaly=37.3448" class="map-btn tmap" target="_blank">
+        <span style="font-weight:700; color:#E8002D; font-size:13px;">T</span>&nbsp;티맵
       </a>
-      <a href="https://kakaomap.com/actions?name=호텔인터불고원주&x=127.9603&y=37.3448" class="map-btn kakao" target="_blank">
-        🗺 카카오내비
+      <a href="kakaomap://route?ep=37.3448,127.9603&by=CAR" class="map-btn kakao" target="_blank">
+        <span style="font-size:14px;">🚗</span>&nbsp;카카오내비
       </a>
       <a href="https://naver.me/G9vFmzQf" class="map-btn naver" target="_blank">
-        📍 네이버지도
+        <span style="font-size:14px;">📍</span>&nbsp;네이버지도
       </a>
     </div>
   </div>
@@ -1042,23 +1045,22 @@
   </div>
 
   <div class="account-wrap">
+    <!-- 신랑 신부 한 칸 -->
     <div class="account-card">
-      <div class="account-who">신랑측 — 박상언</div>
-      <div style="overflow:hidden;">
-        <button class="copy-btn" onclick="copyAccount('110-419-430560', this)">Copy</button>
-        <div class="account-bank">신한은행</div>
-        <div class="account-num">110-419-430560</div>
-        <div class="account-name">예금주 박상언</div>
-      </div>
-    </div>
-
-    <div class="account-card">
-      <div class="account-who">신부측 — 권미지</div>
-      <div style="overflow:hidden;">
-        <button class="copy-btn" onclick="copyAccount('000-0000-0000', this)">Copy</button>
-        <div class="account-bank">○○은행</div>
-        <div class="account-num">000 - 0000 - 0000</div>
-        <div class="account-name">예금주 권미지</div>
+      <div class="account-who" style="margin-bottom:14px;">신랑 · 신부</div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div style="overflow:hidden;">
+          <button class="copy-btn" onclick="copyAccount('110-419-430560', this)">Copy</button>
+          <div style="font-size:12px; color:var(--mid); margin-bottom:3px; font-family:'Noto Sans KR',sans-serif; font-weight:300;">신랑 박상언</div>
+          <div class="account-bank">신한은행</div>
+          <div class="account-num">110-419-430560</div>
+        </div>
+        <div style="border-top:1px solid rgba(201,150,90,0.15); padding-top:14px; overflow:hidden;">
+          <button class="copy-btn" onclick="copyAccount('302-1307-4244-71', this)">Copy</button>
+          <div style="font-size:12px; color:var(--mid); margin-bottom:3px; font-family:'Noto Sans KR',sans-serif; font-weight:300;">신부 권미지</div>
+          <div class="account-bank">농협은행</div>
+          <div class="account-num">302-1307-4244-71</div>
+        </div>
       </div>
     </div>
 
