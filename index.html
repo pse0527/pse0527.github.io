@@ -528,36 +528,43 @@
       mainWrap.appendChild(img);
     });
 
-    // 썸네일 생성 (4개씩 보이되 전체 생성)
-    imgs.forEach((src, i) => {
+    // 썸네일 DOM 생성 (5개 슬롯 고정)
+    for (let slot = 0; slot < 5; slot++) {
       const div = document.createElement('div');
-      div.className = 'gallery-thumb' + (i === 0 ? ' active' : '');
-      if (i >= 4) div.style.display = 'none';
+      div.className = 'gallery-thumb';
       const img = document.createElement('img');
-      img.src = src;
       img.alt = '';
       div.appendChild(img);
-      div.addEventListener('click', () => goTo(i));
+      div.dataset.slot = slot;
+      div.addEventListener('click', () => {
+        const idx = parseInt(div.dataset.imgIdx);
+        if (!isNaN(idx)) goTo(idx);
+      });
       thumbsWrap.appendChild(div);
-    });
+    }
 
     renderGallery();
   }
 
   function renderGallery() {
     if (!GALLERY_IMAGES.length) return;
-    const mainImgs = mainWrap.querySelectorAll('.gallery-main-img');
-    const thumbs = thumbsWrap.querySelectorAll('.gallery-thumb');
     const total = GALLERY_IMAGES.length;
+    const mainImgs = mainWrap.querySelectorAll('.gallery-main-img');
+    const thumbSlots = thumbsWrap.querySelectorAll('.gallery-thumb');
 
+    // 메인 이미지 전환
     mainImgs.forEach((img, i) => img.classList.toggle('active', i === gCurrent));
-    thumbs.forEach((t, i) => t.classList.toggle('active', i === gCurrent));
     counterCur.textContent = gCurrent + 1;
 
-    // 썸네일 4개 윈도우 슬라이딩
-    const start = Math.floor(gCurrent / 4) * 4;
-    thumbs.forEach((t, i) => {
-      t.style.display = (i >= start && i < start + 4) ? '' : 'none';
+    // 썸네일 5개: 현재 사진이 가운데(슬롯 2)에 오도록
+    // 슬롯 오프셋: -2, -1, 0(현재), +1, +2
+    thumbSlots.forEach((slot, s) => {
+      const offset = s - 2; // -2~+2
+      const imgIdx = ((gCurrent + offset) % total + total) % total;
+      const img = slot.querySelector('img');
+      img.src = GALLERY_IMAGES[imgIdx];
+      slot.dataset.imgIdx = imgIdx;
+      slot.classList.toggle('active', offset === 0);
     });
   }
 
@@ -570,11 +577,12 @@
   document.getElementById('gallery-next').addEventListener('click', () => goTo(gCurrent + 1));
 
   // 스와이프
-  let tsX = 0;
-  mainWrap.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive: true });
+  let tsX = 0, tsY = 0;
+  mainWrap.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; tsY = e.touches[0].clientY; }, { passive: true });
   mainWrap.addEventListener('touchend', e => {
     const dx = e.changedTouches[0].clientX - tsX;
-    if (Math.abs(dx) > 40) dx < 0 ? goTo(gCurrent + 1) : goTo(gCurrent - 1);
+    const dy = e.changedTouches[0].clientY - tsY;
+    if (Math.abs(dx) > 80 && Math.abs(dx) > Math.abs(dy) * 1.5) dx < 0 ? goTo(gCurrent + 1) : goTo(gCurrent - 1);
   }, { passive: true });
 
   buildGallery();
