@@ -190,7 +190,7 @@
 
   .scroll-line {
     width: 1px;
-    height: 16px;
+    height: 20px;
     background: linear-gradient(to bottom, var(--gold), transparent);
     animation: scrollPulse 1.8s ease-in-out infinite;
   }
