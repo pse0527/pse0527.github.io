@@ -13,6 +13,7 @@
 <meta property="og:image:height" content="630">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400&family=Gowun+Batang:wght@400;700&family=Nanum+Brush+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -410,6 +411,8 @@
   }
 
   // ── 카카오 공유 ──
+  if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) { Kakao.init('0bd9eb246ec406c5d5d64e0821f6fa3e'); }
+
   function shareKakao() {
     if (typeof Kakao !== 'undefined' && Kakao.isInitialized()) {
       Kakao.Share.sendDefault({
@@ -417,7 +420,7 @@
         content: {
           title: '박상언 ♥ 권미지 결혼식에 초대합니다',
           description: '2026년 10월 17일 오후 2시 · 호텔인터불고 원주',
-          imageUrl: '',
+          imageUrl: 'https://pse0527.github.io/images/preview.png',
           link: { mobileWebUrl: window.location.href, webUrl: window.location.href }
         }
       });
