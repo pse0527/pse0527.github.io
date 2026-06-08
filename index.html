@@ -93,19 +93,13 @@
     background: #c8c0b4;
   }
   /* 대문사진: images/cover.jpg 업로드 시 자동 표시 */
-  /* 4000x6000 이미지 기준, 위 600px 잘라내기 */
   .cover-bg {
     position: absolute;
     inset: 0;
-    overflow: hidden;
-  }
-  .cover-bg img {
-    width: 100%;
-    height: calc(100% + 600px);
-    object-fit: cover;
-    object-position: center top;
-    margin-top: -600px;
-    display: block;
+    background-image: url('images/cover.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
   .cover-overlay {
     position: absolute;
@@ -133,18 +127,17 @@
     animation: fadeUp 1s ease 0.4s forwards;
   }
   .cover-title-names {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 400;
-    font-style: italic;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
     color: rgba(50,38,28,0.88);
     letter-spacing: 0.12em;
     line-height: 1.4;
     text-shadow: 0 1px 8px rgba(255,255,255,0.4);
   }
   .cover-title-main {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 32px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 30px;
     font-weight: 300;
     color: rgba(40,30,20,0.9);
     letter-spacing: 0.18em;
@@ -844,7 +837,7 @@
 <!-- 대문사진: images/cover.jpg 파일을 저장소에 업로드하세요 -->
 <!-- 대문사진: images/cover.jpg 를 저장소에 업로드하세요 -->
 <section class="cover">
-  <div class="cover-bg"><img src="images/cover.jpg" alt="" aria-hidden="true"></div>
+  <div class="cover-bg"></div>
   <div class="cover-overlay"></div>
 
   <!-- 상단: 이름 + 결혼합니다 -->
