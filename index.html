@@ -178,18 +178,9 @@
     <div class="map-name">호텔인터불고원주 컨벤션호텔 <span style="font-size:16px;">📞</span></div>
     <div class="map-sub-hall">1층 다이아몬드홀</div>
     <div class="map-addr">강원 원주시 동부순환로 200</div>
-    <!-- 카카오맵 embed (API 키 불필요) -->
-    <div class="map-img-wrap">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3156.2!2d127.9577!3d37.3448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3562e1b3aaaaaaab%3A0xbbbbbbbbbbbbbbbb!2z7Zi47Yq57J207YuA67mE7JuQ7JeQ7KCc7ZWZ7Iqk7YyF7YOA!5e0!3m2!1sko!2skr!4v1700000000000!5m2!1sko!2skr"
-        width="100%"
-        height="240"
-        style="border:none; display:block;"
-        title="호텔인터불고원주 위치"
-        loading="lazy"
-        allowfullscreen
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+    <!-- 카카오맵 약도서비스 -->
+    <div class="map-img-wrap" style="height:auto;">
+      <div id="daumRoughmapContainer1780887715598" class="root_daum_roughmap root_daum_roughmap_landing" style="width:100%"></div>
     </div>
     <!-- 3버튼: 지도.png 스타일 -->
     <div class="map-btns">
@@ -572,5 +563,15 @@
   buildGallery();
 
 </script>
+  <!-- 카카오맵 약도서비스 스크립트 -->
+  <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+  <script charset="UTF-8">
+    new daum.roughmap.Lander({
+      "timestamp": "1780887715598",
+      "key": "2qkxd56tjmtn",
+      "mapWidth": "360",
+      "mapHeight": "240"
+    }).render();
+  </script>
 </body>
 </html>
