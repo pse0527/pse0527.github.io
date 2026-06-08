@@ -140,7 +140,7 @@
   /* 하단 날짜/장소 */
   .cover-info {
     position: absolute;
-    bottom: 44px;
+    bottom: 82px;
     left: 0; right: 0;
     display: flex;
     flex-direction: column;
