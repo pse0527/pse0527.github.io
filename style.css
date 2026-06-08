@@ -503,7 +503,7 @@
 
   .map-name { font-family:'Noto Serif KR',serif; font-weight:400; font-size:16px; color:var(--dark); margin-bottom:4px; }
   .map-sub-hall { font-family:'Noto Sans KR',sans-serif; font-size:13px; color:var(--mid); font-weight:300; margin-bottom:2px; }
-  .map-img-wrap { position:relative; margin:14px 0 0; border-radius:8px; overflow:hidden; border:1px solid rgba(0,0,0,0.08); height:240px; }
+  .map-img-wrap { position:relative; margin:14px 0 0; border-radius:8px; overflow:hidden; border:1px solid rgba(0,0,0,0.08); }
 
   .map-naver-badge { position:absolute; bottom:6px; left:8px; font-size:10px; color:rgba(0,0,0,0.45); font-family:'Noto Sans KR',sans-serif; }
   .map-btns { display:flex; gap:8px; margin-top:10px; }
