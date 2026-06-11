@@ -331,6 +331,21 @@
     }, 700);
   }, subDelay + 1200);
 
+
+  // ── 개발자 도구 단축키 차단 ──
+  document.addEventListener('keydown', function(e) {
+    // F12
+    if (e.key === 'F12') { e.preventDefault(); return false; }
+    // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C (Chrome/Edge/Firefox)
+    if (e.ctrlKey && e.shiftKey && ['I','i','J','j','C','c'].includes(e.key)) { e.preventDefault(); return false; }
+    // Ctrl+U (소스보기)
+    if (e.ctrlKey && ['U','u'].includes(e.key)) { e.preventDefault(); return false; }
+    // Cmd+Option+I / Cmd+Option+J / Cmd+Option+C (Safari/Mac)
+    if (e.metaKey && e.altKey && ['I','i','J','j','C','c'].includes(e.key)) { e.preventDefault(); return false; }
+  });
+  // 우클릭 차단
+  document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+
   // ── PC 차단 (배포 중 / 개발 시 아래 주석 처리) ──
   function isMobile() {
     return /Android|iPhone|iPad|iPod|Mobile|BlackBerry|Windows Phone/i.test(navigator.userAgent)
