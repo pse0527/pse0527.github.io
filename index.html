@@ -343,11 +343,11 @@
     }, 700);
   }, subDelay + 1200);
 
-  // ── PC 차단 (개발 중 주석 처리 / 배포 시 아래 주석 해제) ──
-  // function isMobile() {
-  //   return /Android|iPhone|iPad|iPod|Mobile|BlackBerry|Windows Phone/i.test(navigator.userAgent)
-  //     || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
-  // }
+  // ── PC 차단 (배포 중 / 개발 시 아래 주석 처리) ──
+  function isMobile() {
+    return /Android|iPhone|iPad|iPod|Mobile|BlackBerry|Windows Phone/i.test(navigator.userAgent)
+      || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
+  }
   // if (!isMobile()) {
   //   document.body.innerHTML = `
   //     <div style="
