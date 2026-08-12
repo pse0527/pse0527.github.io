@@ -332,6 +332,17 @@
   }, subDelay + 1200);
 
 
+
+  // ── 백그라운드 BGM 일시정지 ──
+  document.addEventListener('visibilitychange', function() {
+    if (!audio) return;
+    if (document.hidden) {
+      audio.pause();
+    } else {
+      if (bgmPlaying) audio.play().catch(() => {});
+    }
+  });
+
   // ── 개발자 도구 단축키 차단 ──
   document.addEventListener('keydown', function(e) {
     // F12
