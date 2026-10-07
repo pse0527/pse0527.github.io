@@ -456,11 +456,8 @@
   // ── BGM ──
   const BGM_SRC = 'bgm.mp3';
   let audio = null;
-  let bgmPlaying = true; // 디폴트: 켜진 상태
+  let bgmPlaying = false; // 디폴트: 꺼진 상태
   const bgmBtn = document.getElementById('bgm-btn');
-
-  // 페이지 로드 시 켜진 상태(♬) 로 시작
-  bgmBtn.classList.add('playing');
 
   // BGM 파일 있으면 자동 재생 시도
   if (BGM_SRC) {
